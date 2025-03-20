@@ -1,11 +1,12 @@
 const mysql = require("mysql2");
+require("dotenv").config({ path: __dirname + "/../.env" }); // Importa variables del .env
 
 const db = mysql.createConnection({
-  host: "mysql.railway.internal",
-  user: "root",
-  password: "NbytqYDBcxUGjJjRikERzKqRwjmyzeRU",
-  database: "railway",
-  port: 3306, // ¡IMPORTANTE agregar el puerto!
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
 });
 
 db.connect((err) => {
@@ -13,7 +14,7 @@ db.connect((err) => {
     console.error("❌ Error conectando a MySQL:", err);
     return;
   }
-  console.log("✅ Conectado a la base de datos Railway MySQL");
+  console.log("✅ Conectado a la base de datos Railway");
 });
 
 module.exports = db;
