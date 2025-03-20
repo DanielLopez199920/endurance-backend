@@ -7,7 +7,9 @@ const path = require("path");
 const app = express();
 const visitRoutes = require("./routes/visits");
 // 🔹 Middleware
-app.use(cors());
+app.use(cors({
+  origin: "https://monumental-wisp-90771f.netlify.app"
+}));
 app.use(express.json());
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // ⚠️ Esto es importante
