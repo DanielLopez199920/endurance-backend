@@ -1,11 +1,11 @@
 const mysql = require("mysql2");
-require("dotenv").config();
 
 const db = mysql.createConnection({
-  host: "localhost",
+  host: "mysql.railway.internal",
   user: "root",
-  password: "1342", // 🔹 Coloca tu contraseña
-  database: "endurance",
+  password: "NbytqYDBcxUGjJjRikERzKqRwjmyzeRU",
+  database: "railway",
+  port: 3306, // ¡IMPORTANTE agregar el puerto!
 });
 
 db.connect((err) => {
@@ -13,7 +13,7 @@ db.connect((err) => {
     console.error("❌ Error conectando a MySQL:", err);
     return;
   }
-  console.log("✅ Conectado a la base de datos MySQL");
+  console.log("✅ Conectado a la base de datos Railway MySQL");
 });
 
 module.exports = db;
