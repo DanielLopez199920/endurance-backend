@@ -8,7 +8,9 @@ const app = express();
 const visitRoutes = require("./routes/visits");
 // 🔹 Middleware
 app.use(cors({
-  origin: "https://monumental-wisp-90771f.netlify.app"
+  origin: "https://monumental-wisp-90771f.netlify.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
 app.use(express.json());
 
