@@ -27,8 +27,12 @@ app.use("/api/athletes", athleteRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/visits", visitRoutes);
 
-// 🔹 Iniciar Servidor
 const PORT = process.env.PORT || 5000;
+const HOST = process.env.NODE_ENV === "production"
+  ? "Render"
+  : `http://localhost:${PORT}`;
+
 app.listen(PORT, () => {
-  console.log(`🔥 Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🔥 Servidor corriendo en ${HOST}`);
 });
+
