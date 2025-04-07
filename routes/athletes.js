@@ -25,8 +25,9 @@ router.get("/", (req, res) => {
 
 // 🔹 Registrar un nuevo deportista con imagen
 router.post("/register", upload.single("photo"), (req, res) => {
+  const backendURL = "https://endurance-backend.onrender.com";
   const { name, email, phone, birthdate, address, status, branch, notes } = req.body;
-  const photo = req.file ? `/uploads/${req.file.filename}` : null;
+  const photo = req.file ? `${backendURL}/uploads/${req.file.filename}` : null;
 
   if (!name || !email) {
     return res.status(400).json({ error: "Nombre y correo son obligatorios" });
@@ -72,10 +73,11 @@ router.use("/uploads", express.static("uploads"));
 
 // 🔹 Actualizar un deportista (con opción de nueva imagen)
 router.put("/update/:id", upload.single("photo"), (req, res) => {
+  const backendURL = "https://endurance-backend.onrender.com";
   const { id } = req.params;
   const { name, email, phone, birthdate, address, status, branch, notes } = req.body;
-  const photo = req.file ? `/uploads/${req.file.filename}` : null;
-
+   const photo = req.file ? `${backendURL}/uploads/${req.file.filename}` : null;
+  
   const sql = `
     UPDATE athletes SET 
       name = ?, email = ?, phone = ?, birthdate = ?, 
