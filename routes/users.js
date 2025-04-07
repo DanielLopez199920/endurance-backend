@@ -4,7 +4,6 @@ const db = require("./db");
 
 const router = express.Router();
 
-// 🔹 Registrar un nuevo usuario (solo Admin)
 router.post("/register", (req, res) => {
   const { name, email, password, role, adminId } = req.body;
 
@@ -12,7 +11,6 @@ router.post("/register", (req, res) => {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });
   }
 
-  // Verificar si el usuario que está registrando es un Admin
   db.query("SELECT * FROM users WHERE id = ?", [adminId], async (err, results) => {
     if (err) return res.status(500).json({ error: "Error en el servidor" });
 
@@ -20,7 +18,6 @@ router.post("/register", (req, res) => {
       return res.status(403).json({ error: "No autorizado" });
     }
 
-    // Hashear la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
     
     const sql = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
@@ -36,7 +33,6 @@ router.post("/register", (req, res) => {
   });
 });
 
-// 🔹 Obtener lista de usuarios (Solo Admins pueden verlos)
 router.get("/", (req, res) => {
   const sql = "SELECT id, name, email, role, createdAt FROM users WHERE role IN ('admin', 'staff')";
   db.query(sql, (err, results) => {
@@ -47,7 +43,7 @@ router.get("/", (req, res) => {
     res.json(results);
   });
 });
-// Obtener un usuario por ID
+
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   const sql = "SELECT id, name, email, role FROM users WHERE id = ?";
@@ -59,7 +55,7 @@ router.get("/:id", (req, res) => {
 });
 
 
-// Actualizar usuario
+
 router.put("/:id", (req, res) => {
   const { name, email, role } = req.body;
   const { id } = req.params;
