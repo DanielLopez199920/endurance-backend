@@ -10,7 +10,7 @@ const visitRoutes = require("./routes/visits");
 const app = express();
 
 const allowedOrigins = [
-  "https://benevolent-travesseiro-c6f116.netlify.app",
+  "https://effervescent-vacherin-a07d27.netlify.app",
   "http://localhost:3000"
 ];
 
